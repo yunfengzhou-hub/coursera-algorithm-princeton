@@ -1,7 +1,5 @@
 package percolation;
 
-import java.util.*;
-
 public class Percolation {
     private static Boolean[][] gridOpen;
     private static Boolean[][] gridFull;
@@ -91,6 +89,17 @@ public class Percolation {
             }
         }
         return false;
+    }
+
+    public void show(){
+        System.out.println("open site distribution:");
+        int i,j;
+        for(i=0;i<gridSize;i++){
+            for(j=0;j<gridSize;j++){
+                System.out.print(gridOpen[i][j]?1:0);
+            }
+            System.out.println(" ");
+        }
     }
 
     // test client (optional)

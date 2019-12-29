@@ -12,14 +12,20 @@ public class GridRoot{
         }
     }
     public Integer[] getRoot(int row, int col){
-        Integer[] rootIndex = new Integer[2];
+        // System.out.println("in root");
+        Integer[] rootIndex = new Integer[2], rootIndex2 = new Integer[2];
         rootIndex[0] = col - 1;
         rootIndex[1] = row - 1;
         while(gridRoot[rootIndex[0]][rootIndex[1]][0] != rootIndex[0] || 
         gridRoot[rootIndex[0]][rootIndex[1]][1] != rootIndex[1]){
-            rootIndex[0] = gridRoot[rootIndex[0]][rootIndex[1]][0];
-            rootIndex[1] = gridRoot[rootIndex[0]][rootIndex[1]][1];
+            // System.out.println(rootIndex[0]+" "+rootIndex[1]+" "+gridRoot[rootIndex[0]][rootIndex[1]][0]+" "+gridRoot[rootIndex[0]][rootIndex[1]][1]);
+            rootIndex2[0] = gridRoot[rootIndex[0]][rootIndex[1]][0];
+            rootIndex2[1] = gridRoot[rootIndex[0]][rootIndex[1]][1];
+            rootIndex[0] = rootIndex2[0];
+            rootIndex[1] = rootIndex2[1];
+            // System.out.println(rootIndex[0]+" "+rootIndex[1]);
         }
+        // System.out.println("out root");
         return rootIndex;
     }
     public void setRoot(int row, int col, Integer[] newIndex){
