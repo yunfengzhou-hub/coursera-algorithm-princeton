@@ -13,11 +13,8 @@ public class PercolationStats {
         for(Integer i=0;i<trials;i++){
             Percolation p = new Percolation(n);
             while(!p.percolates()){
-                // System.out.println("to open");
                 p.open(r.nextInt(n)+1, r.nextInt(n)+1);
-                // p.show();
             }
-            // System.out.println("system percolated.");
             thresh[i] = Double.valueOf(p.numberOfOpenSites())/Math.pow(n,2);
         }
 
@@ -60,10 +57,7 @@ public class PercolationStats {
 
    // test client (see below)
    public static void main(String[] args){
-       PercolationStats p = new PercolationStats(100, 1000);
-    //    for(int i=0;i<10;i++){
-    //        System.out.println(thresh[i]);
-    //    }
+       PercolationStats p = new PercolationStats(100, 100);
        System.out.println(p.mean()+" "+p.stddev()+" "+p.confidenceLo()+" "+p.confidenceHi());
        return;
    }

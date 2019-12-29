@@ -119,13 +119,10 @@ public class Percolation {
         p.open(5,3);
         p.open(5,4);
         if(p.numberOfOpenSites()!=10){
-            // System.out.println("test failed");
             System.exit(1);
         }
         if(!p.isFull(5, 4)){
             System.out.println(p.isFull(4, 5));
-            // System.out.println(Arrays.deeptoString(gridFull));
-            // System.out.println("test failed");
             System.exit(1);
         }
         if(p.percolates()){
