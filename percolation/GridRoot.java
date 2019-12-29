@@ -5,7 +5,7 @@ public class GridRoot{
     public GridRoot(int n){
         gridRoot = new Integer[n][n][2];
         for(Integer i=0;i<n;i++){
-            for(Integer j=0;i<n;i++){
+            for(Integer j=0;j<n;j++){
                 gridRoot[i][j][0] = i;
                 gridRoot[i][j][1] = j;
             }

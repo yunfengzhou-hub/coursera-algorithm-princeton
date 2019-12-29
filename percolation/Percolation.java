@@ -1,9 +1,10 @@
 package percolation;
 
+import java.util.*;
+
 public class Percolation {
     private static Boolean[][] gridOpen;
     private static Boolean[][] gridFull;
-    private static Boolean isPercolate;
     private static Integer numOpen,gridSize;
     private static Boolean needUpdate;
     GridRoot gridRoot;
@@ -12,14 +13,13 @@ public class Percolation {
     public Percolation(int n){
         gridOpen = new Boolean[n][n];
         gridFull = new Boolean[n][n];
-        isPercolate = false;
         numOpen = 0;
         gridSize = n;
         gridRoot = new GridRoot(n);
         needUpdate = false;
 
         for(Integer i=0;i<n;i++){
-            for(Integer j=0;i<n;i++){
+            for(Integer j=0;j<n;j++){
                 gridOpen[i][j] = false;
                 gridFull[i][j] = false;
             }
@@ -28,7 +28,7 @@ public class Percolation {
 
     // opens the site (row, col) if it is not open already
     public void open(int row, int col){
-        if(gridOpen[col-1][row-1]){
+        if(isOpen(row,col)){
             return;
         }
 
@@ -61,9 +61,9 @@ public class Percolation {
             return;
         }
         Integer[] gridIndex;
-        for(Integer i=0;i<gridSize;i++){
-            if(isOpen(i,gridSize-1)){
-                gridIndex = gridRoot.getRoot(i,gridSize-1);
+        for(Integer i=1;i<=gridSize;i++){
+            if(isOpen(i,1)){
+                gridIndex = gridRoot.getRoot(i,1);
                 gridFull[gridIndex[0]][gridIndex[1]] = true;
             }
         }
@@ -79,14 +79,14 @@ public class Percolation {
 
     // returns the number of open sites
     public int numberOfOpenSites(){
-            return numOpen.intValue();
+        return numOpen.intValue();
     }
 
     // does the system percolate?
     public boolean percolates(){
         updateGrid();
-        for(Integer i=0;i<gridSize;i++){
-            if(isFull(i,gridSize-1)){
+        for(Integer i=1;i<=gridSize;i++){
+            if(isFull(i,gridSize)){
                 return true;
             }
         }
@@ -94,7 +94,40 @@ public class Percolation {
     }
 
     // test client (optional)
-    public static void main(String[] args){
-
+    public static void main(String[] args) throws Exception{
+        Percolation p = new Percolation(5);
+        p.open(1, 1);
+        if(p.numberOfOpenSites()!=1){
+            System.exit(1);
+        }
+        p.open(1,2);
+        p.open(2,2);
+        p.open(3,2);
+        p.open(3,1);
+        p.open(4,1);
+        p.open(5,1);
+        p.open(5,2);
+        p.open(5,3);
+        p.open(5,4);
+        if(p.numberOfOpenSites()!=10){
+            // System.out.println("test failed");
+            System.exit(1);
+        }
+        if(!p.isFull(5, 4)){
+            System.out.println(p.isFull(4, 5));
+            // System.out.println(Arrays.deeptoString(gridFull));
+            // System.out.println("test failed");
+            System.exit(1);
+        }
+        if(p.percolates()){
+            System.out.println("test failed");
+            System.exit(1);
+        }
+        p.open(5,5);
+        if(!p.percolates()){
+            System.out.println("test failed");
+            System.exit(1);
+        }
+        System.out.println("test succeed");
     }
 }
